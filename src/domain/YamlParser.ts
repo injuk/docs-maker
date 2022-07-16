@@ -1,5 +1,5 @@
+import { parse } from 'yaml';
 import RequiredKeys from './RequiredKeys.ts';
-import { parse } from 'https://deno.land/std@0.82.0/encoding/yaml.ts';
 
 export default class FromYaml {
 
