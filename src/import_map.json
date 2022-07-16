@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "yaml": "https://deno.land/std@0.82.0/encoding/yaml.ts",
+    "docx": "https://cdn.skypack.dev/docx"
+  }
+}
