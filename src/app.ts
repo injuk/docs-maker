@@ -2,9 +2,11 @@ import { objectToMap } from './util/toMap.ts';
 import FromYaml from './domain/YamlParser.ts';
 import { debug, error } from './common/logger.ts';
 
+import toDocx from './util/toDocx.ts';
+
 (async function main() {
-    const file = await Deno.readTextFile('../resources/data/input.yml');
-    // const file = await Deno.readTextFile('../resources/data/invalid-input.yml');
+    const file = await Deno.readTextFile('../resources/data/input/input.yml');
+    // const file = await Deno.readTextFile('../resources/data/input/invalid-input.yml');
 
     try {
         const parsed = new FromYaml()
@@ -14,9 +16,7 @@ import { debug, error } from './common/logger.ts';
         for(const [ k, v ] of map)
             debug(`[${k}] => [${JSON.stringify(v)}]`);
 
-        // debug(parsed.info);
-        // debug(parsed.servers);
-        // debug(parsed.components);
+        toDocx(parsed);
     } catch (e) {
         error(e);
         error('error occurred!!!');
