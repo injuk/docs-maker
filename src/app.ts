@@ -3,6 +3,7 @@ import FromYaml from './domain/YamlParser.ts';
 import { debug, error } from './common/logger.ts';
 
 import toDocx from './util/toDocx.ts';
+import writeDocx from './domain/docx/Cover.ts';
 
 (async function main() {
     const file = await Deno.readTextFile('../resources/data/input/input.yml');
@@ -17,6 +18,8 @@ import toDocx from './util/toDocx.ts';
             debug(`[${k}] => [${JSON.stringify(v)}]`);
 
         toDocx(parsed);
+
+        // await writeDocx();
     } catch (e) {
         error(e);
         error('error occurred!!!');
