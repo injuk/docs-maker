@@ -1,5 +1,5 @@
 import { parse } from 'yaml';
-import RequiredKeys from './RequiredKeys.ts';
+import RequiredKeys from '../interface/RequiredKeys.ts';
 
 export default class FromYaml {
 
