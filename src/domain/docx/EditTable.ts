@@ -1,148 +1,49 @@
 import docx from 'docx';
 
 const {
-    Paragraph,
     Table,
+    TextRun,
     TableRow,
     TableCell,
-    VerticalAlign,
-    AlignmentType,
-    TextRun,
-    ShadingType,
+    Paragraph,
     HeightRule,
+    ShadingType,
+    AlignmentType,
+    VerticalAlign,
 } = docx;
 
+const height = {
+    value: 450,
+    rule: HeightRule.AUTO,
+};
+const shading = {
+    type: ShadingType.CLEAR,
+    color: 'auto',
+    fill: '#d2d2d2',
+};
+const verticalAlign = VerticalAlign.CENTER;
+
 export default [
-    new Paragraph({
-        pageBreakBefore: true,
-    }),
+    new Paragraph({ pageBreakBefore: true }),
     new Table({
         columnWidths: [3000, 3000, 3000],
         rows: [
             new TableRow({
-                tableHeader: true,
-                height: {
-                    value: 450,
-                    rule: HeightRule.AUTO,
-                },
+                height,
                 children: [
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [
-                            new Paragraph({
-                                alignment: AlignmentType.CENTER,
-                                children: [
-                                    new TextRun({
-                                        text: '수정일',
-                                        font: 'Arial',
-                                        size: 22,
-                                        bold: true,
-                                    }),
-                                ],
-                            }),
-                        ],
-                        shading: {
-                            type: ShadingType.CLEAR,
-                            color: "auto",
-                            fill: "#b4b4b4",
-                        },
-                    }),
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [
-                            new Paragraph({
-                                alignment: AlignmentType.CENTER,
-                                children: [
-                                    new TextRun({
-                                        text: '내용',
-                                        font: 'Arial',
-                                        size: 22,
-                                        bold: true,
-                                    }),
-                                ],
-                            }),
-                        ],
-                        shading: {
-                            type: ShadingType.CLEAR,
-                            color: "auto",
-                            fill: "#b4b4b4",
-                        },
-                    }),
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [
-                            new Paragraph({
-                                alignment: AlignmentType.CENTER,
-                                children: [
-                                    new TextRun({
-                                        text: '수정자',
-                                        font: 'Arial',
-                                        size: 22,
-                                        bold: true,
-                                    }),
-                                ],
-                            }),
-                        ],
-                        shading: {
-                            type: ShadingType.CLEAR,
-                            color: "auto",
-                            fill: "#b4b4b4",
-                        },
-                    }),
+                    getTableCellWithText('수정일', true),
+                    getTableCellWithText('내용', true),
+                    getTableCellWithText('수정자', true),
                 ],
+                tableHeader: true,
             }),
             new TableRow({
-                height: {
-                    value: 450,
-                    rule: HeightRule.AUTO,
-                },
+                height,
                 children: [
                     // contents
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [
-                            new Paragraph({
-                                alignment: AlignmentType.CENTER,
-                                children: [
-                                    new TextRun({
-                                        text: '2022/07/18',
-                                        font: 'Arial',
-                                        size: 22,
-                                    }),
-                                ],
-                            }),
-                        ],
-                    }),
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [
-                            new Paragraph({
-                                alignment: AlignmentType.CENTER,
-                                children: [
-                                    new TextRun({
-                                        text: 'nothing',
-                                        font: 'Arial',
-                                        size: 22,
-                                    }),
-                                ],
-                            }),
-                        ],
-                    }),
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [
-                            new Paragraph({
-                                alignment: AlignmentType.CENTER,
-                                children: [
-                                    new TextRun({
-                                        text: 'ingnoh',
-                                        font: 'Arial',
-                                        size: 22,
-                                    }),
-                                ],
-                            }),
-                        ],
-                    }),
+                    getTableCellWithText('2022/07/18'),
+                    getTableCellWithText('nothing'),
+                    getTableCellWithText('ingnoh'),
                 ],
             }),
             ...getTableRows(18),
@@ -150,30 +51,35 @@ export default [
     }),
 ];
 
+function getTableCellWithText(text: string, hasShading: boolean = false) {
+    return new TableCell({
+        verticalAlign,
+        children: [
+            new Paragraph({
+                alignment: AlignmentType.CENTER,
+                children: [ new TextRun({ text, font: 'Arial', size: 22 }) ],
+            }),
+        ],
+        shading: hasShading ? shading : undefined,
+    });
+}
+
 function getTableRows(count = 0) {
     const results = [];
     for(let i = 0; i < count; i++) {
         results.push(
-            new TableRow({
-                height: {
-                    value: 450,
-                    rule: HeightRule.AUTO,
-                },
-                children: [
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [],
-                    }),
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [],
-                    }),
-                    new TableCell({
-                        verticalAlign: VerticalAlign.CENTER,
-                        children: [],
-                    }),
-                ],
-            })
+            new TableRow({ height, children: getPlainTableCell(3) }),
+        );
+    }
+
+    return results;
+}
+
+function getPlainTableCell(count = 0) {
+    const results = [];
+    for (let i = 0; i < count; i++) {
+        results.push(
+            new TableCell({ verticalAlign, children: [] }),
         );
     }
 
