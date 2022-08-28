@@ -1,23 +1,15 @@
-import docx from 'https://esm.sh/docx@7.4.0';
-const { Paragraph, TextRun } = docx;
-
-interface Bottom {
-    color: string;
-    space: number;
-    style: string;
-    size: number;
-}
-interface Border {
-    bottom?: Bottom;
-}
-
-// type TextRun = typeof TextRun;
+import {
+    TextRun,
+    Paragraph,
+    AlignmentType,
+    IBordersOptions,
+} from 'docx';
 
 interface ParagraphProps {
     spacing?: { line: number };
-    alignment?: string;
-    border?: Border;
-    children?: typeof TextRun[];
+    alignment?: AlignmentType;
+    border?: IBordersOptions;
+    children?: TextRun[];
 }
 
 export default class ParagraphBuilder {
@@ -36,23 +28,23 @@ export default class ParagraphBuilder {
         return this;
     }
 
-    alignment(param: string) {
+    alignment(param: AlignmentType) {
         this.props.alignment = param;
         return this;
     }
 
-    border(param: Border) {
+    border(param: IBordersOptions) {
         this.props.border = param;
         return this;
     }
 
-    children(param: Array<typeof TextRun>) {
+    children(param: TextRun[]) {
         this.props.children = param;
         return this;
     }
 
-    // FIXME: return Paragraph 타이핑하기.
     build() {
+        console.log(`create Paragraph with: ${JSON.stringify(this.props)}`);
         return new Paragraph(this.props);
     }
 }

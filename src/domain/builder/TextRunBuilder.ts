@@ -1,5 +1,4 @@
-import docx from 'https://esm.sh/docx@7.4.0';
-const { TextRun } = docx;
+import { TextRun } from 'docx';
 
 type Colors = '#1188ff';
 type Fonts = 'Nanum Gothic';
@@ -11,7 +10,7 @@ interface TextRunProps {
     bold?: boolean;
 
     font?: Fonts;
-    color?: Colors;
+    color?: '#1188ff';
 }
 
 export default class TextRunBuilder {
@@ -55,8 +54,8 @@ export default class TextRunBuilder {
         return this;
     }
 
-    // FIXME: return TextRun 타이핑하기.
     build() {
+        console.log(`create TextRun with: ${JSON.stringify(this.props)}`);
         return new TextRun(this.props);
     }
 }

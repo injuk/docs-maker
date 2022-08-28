@@ -1,19 +1,5 @@
-import docx from 'https://esm.sh/docx@7.4.0';
-const { TextRun } = docx;
-
-import {
-    assertEquals,
-    assertThrows,
-    assertInstanceOf,
-    assertStrictEquals,
-} from 'https://deno.land/std@0.153.0/testing/asserts.ts';
-import {
-    it,
-    describe,
-    afterEach,
-    beforeEach,
-} from 'https://deno.land/std@0.153.0/testing/bdd.ts';
-import TextRunBuilder from '../../../src/domain/builder/TextRunBuilder.ts';
+import { TextRun } from 'docx';
+import TextRunBuilder from '../../../src/domain/builder/TextRunBuilder';
 
 describe('TextRunBuilder', () => {
 
@@ -30,6 +16,6 @@ describe('TextRunBuilder', () => {
             .build();
 
         // then
-        assertInstanceOf(result, TextRun);
+        expect(result).toBeInstanceOf(TextRun);
     });
 });
